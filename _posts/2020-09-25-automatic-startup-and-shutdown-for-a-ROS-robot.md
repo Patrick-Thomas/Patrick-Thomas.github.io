@@ -51,7 +51,7 @@ Detecting the switch state and initiating shut down can be achieved in a few lin
 
 While most of the components are now ready, there is one extra thing that’s needed to ensure the shutdown function can work effectively. While the toggle switch is sufficient to power off the motor controllers and signal the PC to shutdown, there needs to a way to keep the PC powered while it is shutting down, as a toggle switch by it’s nature causes a break in the circuit. This can be achieved using a ‘delay-off’ timer relay. The complete circuit, including the aforementioned optocoupler is shown below:
 
-![](off_relay_circuit.png)
+![](/assets/images/off_relay_circuit.png)
 
 The delay timer here keeps the coil energised for a fixed interval once the switch has been opened (about 30 seconds in our case), allowing current to flow through the relay contacts and thus keep the DC/DC converter powered while the shutdown is completed. After this delay the coil de-energises and the DC/DC converter is switched off, preventing anything from draining the 24V battery while the rover is switched off. 
 
