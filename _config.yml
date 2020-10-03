@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Another Engineering blog
+title: Make it Move
 email:
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -24,6 +24,7 @@ github_username: username
 minimal_mistakes_skin: default
 search: true
 
+url: "https://sparkglug.co.uk"
 repository: "Patrick-Thomas/Patrick-Thomas.github.io" 
 
 comments:
@@ -31,7 +32,6 @@ comments:
   utterances:
     theme: "github-light" # "github-dark"
     issue_term: "blog-comments"
-
 
 # Build settings
 markdown: kramdown
@@ -79,7 +79,7 @@ author:
       url: "https://www.linkedin.com/in/patrick-thomas-43947562/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://instagram.com/lifeglug"
 
 footer:
   links:
@@ -91,7 +91,7 @@ footer:
       url: "https://www.linkedin.com/in/patrick-thomas-43947562/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://instagram.com/lifeglug"
 
 defaults:
   # _posts

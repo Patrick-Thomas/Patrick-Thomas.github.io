@@ -25,9 +25,9 @@ While going through some design improvements for our rover, I decided to impleme
 
 ros_upstart is a ROS package which configures a Linux daemon (background) service to run your chosen roslaunch file. The service starts automatically once the OS is booted, but can also be started and stopped manually just like any other daemon. [Here is the guide I used to configure ros_upstart.](https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upstart/){:target="_blank"}
 
-One thing that might be important for you to consider are the permissions granted to the service. By default the service is run without a user specified, which may cause problems if your ROS nodes need to access hardware interfaces e.g. GPIO, UART. In Linux, use of these interfaces is typically controlled using groups. A group is given access to a particular interface via a udev rule, and users who belong to that group are able to use the interface.
+You may also need to consider the permissions granted to the service. By default the service is run without user privileges, which may cause problems if your ROS nodes need to access hardware interfaces e.g. GPIO, UART. In Linux, use of these interfaces is typically controlled using groups. A group is granted access to a particular interface via a udev rule, and users who belong to that group are able to use the interface.
 
-The solution is to specify a user parameter – who is a member of all the necessary groups - while configuring ros_upstart:
+The solution is to specify a user – who is a member of all the necessary groups - while configuring ros_upstart:
 
 ``` 
 rosrun robot_upstart install my_robot_bringup/launch/my_robot.launch --job my_robot_ros --symlink --user patrick
@@ -43,13 +43,13 @@ setuidgid patrick roslaunch $LAUNCH_FILENAME & PID=$!
 envuidgid patrick roslaunch $LAUNCH_FILENAME & PID=$!
 ```
 
-You can use the command `rosnode list` to verify that all your nodes have loaded successfully by the service.
+You can use the command `rosnode list` to verify that all your nodes have been loaded successfully by the service.
 
 # Switch detection
 
 While ros_upstart takes care of the start-up procedure, we still need a way of turning the system off. As one of our primary aims is to control everything using a single toggle switch, we need some way of detecting the state of this switch and running the `shutdown` command when it is in the off state. Running this command ensures all services (including ROS) are stopped in a controlled manner, and protects against filesystem corruption.
 
-In our rover the toggle switch is used to connect / disconnect the high side of a 24V battery, so the first obstacle we face is translating a 24V signal into a 3.3V signal compatible with the TTL level of our PC’s GPIO pins. We achieve this using an optocoupler ([a IS2801-1 from Isocom Components to be exact](https://datasheet.lcsc.com/szlcsc/Isocom-Components-IS2801-1_C89879.pdf){:target="_blank"}, although most optocouplers should be OK).
+In our rover the toggle switch is used to connect / disconnect the high side of a 24V battery, so the first obstacle we face is translating a 24V signal into a 3.3V signal compatible with the TTL level of our PC’s GPIO pins. We achieve this using an optocoupler ([an IS2801-1 from Isocom Components to be exact](https://datasheet.lcsc.com/szlcsc/Isocom-Components-IS2801-1_C89879.pdf){:target="_blank"}, although most optocouplers should be OK).
 
 Optocouplers have the additional benefit of galvanic isolation, therefore there is no need for the battery negative and signal negative to be tied together, as would be the case for a normal level translation circuit. This, along with the fact we are using an isolated DC/DC converter to power our PC from the 24V battery, keeps high currents from the motor controllers away from the PC’s ground connections.
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
 # Delay off timer
 
-There is one extra thing we need to ensure the shutdown function can work effectively. While the toggle switch is sufficient to power off the motor controllers and signal the PC to shutdown, there needs to a way to keep the PC powered while it is shutting down, as a toggle switch by it’s nature causes a break in the circuit. This can be achieved using a ‘delay off’ timer relay. The complete circuit, including the aforementioned optocoupler is shown below:
+There is one extra thing we need to ensure the shutdown function can work effectively. While the toggle switch is sufficient to power off the motor controllers and signal the PC to shutdown, there needs to a way to keep the PC powered while it is shutting down, as a toggle switch by it’s nature causes a break in the circuit. This can be achieved using a [‘delay off’ timer relay](https://www.12voltplanet.co.uk/adjustable-delay-timer-relay-delay-on-or-off-24v-10a.html){:target="_blank"}. The complete circuit, including the aforementioned optocoupler is shown below:
 
 ![](/assets/images/off_relay_circuit.png)
 
