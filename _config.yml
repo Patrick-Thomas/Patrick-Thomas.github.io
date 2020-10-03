@@ -27,11 +27,11 @@ search: true
 url: "https://sparkglug.co.uk"
 repository: "Patrick-Thomas/Patrick-Thomas.github.io" 
 
-comments:
-  provider: "utterances"
-  utterances:
-    theme: "github-light" # "github-dark"
-    issue_term: "blog-comments"
+staticman_url: https://sparkglug.herokuapp.com/v3/entry/github/Patrick-Thomas/Patrick-Thomas.github.io/master/comments
+
+reCaptcha:
+    siteKey: 6LfHTtMZAAAAAGH6Q2_lHYGojMTBG01HolkvAPaK
+    secret: x0gDEwTIkzF0IS/8+pqFRdxIo+xNFJrEXZjKwprzkUimmh72M6MXUw8DK82gf/TWa4giEFsmGD2wS2eA5d3sPOfwpk7I2pfuQWZaXNdysFBKxvxhO20UJAellDizblaNS4bV1MwiJFwACbXk661AQrCDhIiTtIA/hwWVsViZfOb3bbdSZJ188/q7UHQilUGSCSN8i8PDtjpOXmdXWVHdMvDkl1mQYPGcGCtlCzj+hOluQnNqqcvIYwdoIlwT3ewgJ90XuR/CCAQYNXoobYu1Yfb26mTy6HJ57zB3Me5ykbyD/tEaBJMz/I/CcW5U06/vW+y+pZiiQNo11e+XSL9gK85VSs5DW6SGpEReGu3WahSA9fsQPrajIyRgHOtjFzkwjWXILOa3kttllfqSF80Ue1ElseFee+XXDuHS2Ql2A4Ch6JOqZEmw2DSolzQGsw2DnQifDVzlVID73M+uiqXKLENR/awoDbjnc6L3u+e3POK0Pva04UdETp2vJdtMmtAZnVj4A4U9cFcNY4hU4UipoYcmbB1bem1Jyi7h24djZ+l3F12CKJPAPpss7rSjlRo2FYUkRDDhSVWFXhYKh3WJ0Lt1F1hZctjahgqpx4AigxXTRx4ZKd5t2f6VhM4UaujAEHGTYcCw5eF2jeQ2GpXewkhTBxmyJPNzG6SQ9GaB0/c=
 
 # Build settings
 markdown: kramdown
