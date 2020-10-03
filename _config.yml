@@ -27,7 +27,7 @@ search: true
 url: "https://sparkglug.co.uk"
 repository: "Patrick-Thomas/Patrick-Thomas.github.io" 
 
-staticman_url: https://sparkglug.herokuapp.com/v3/entry/github/Patrick-Thomas/Patrick-Thomas.github.io/master/comments
+staticman_url: https://sparkglug.herokuapp.com/v2/entry/Patrick-Thomas/Patrick-Thomas.github.io/master/comments
 
 reCaptcha:
     siteKey: 6LfHTtMZAAAAAGH6Q2_lHYGojMTBG01HolkvAPaK
