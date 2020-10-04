@@ -33,6 +33,7 @@ comments:
   provider: "staticman_v2"
   staticman:
     branch: "master"
+    endpoint: https://sparkglug.herokuapp.com/v2/entry/
 
 reCaptcha:
     siteKey: 6LfHTtMZAAAAAGH6Q2_lHYGojMTBG01HolkvAPaK
