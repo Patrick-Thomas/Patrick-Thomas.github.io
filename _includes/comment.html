@@ -8,7 +8,12 @@
 
 {% endcomment %}
 
+{% comment %}
+
   <div class="comment__content-wrapper">
+
+{% endcomment %}
+
     <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
       {% unless include.url == blank %}
         <span itemprop="name"><a rel="external nofollow" itemprop="url" href="{{ include.url }}">{{ include.name }}</a></span>
@@ -24,5 +29,11 @@
       {% endif %}
     </p>
     <div itemprop="text">{{ include.message | markdownify }}</div>
+
+{% comment %}
+
   </div>
+
+{% endcomment %}
+
 </article>
