@@ -1,45 +1,35 @@
 ---
-title: "LoraWAN in low coverage areas"
-date: 2020-10-02T15:00:00-00:00
+title: "LoRaWAN in low coverage areas - Part 2: Firmware"
+date: 2020-10-11T15:00:00-00:00
 categories:
   - blog
   - Arduino
-  - Hardware
+  - Firmware
   - LoraWAN
   - IoT
 tags:
-  - ESP32
-  - TTN
   - SPIFFS
+  - RTC
+  - 
 ---
 
-In the UK - and many other parts of the world - much of the LoraWAN infrastructure is being provided for free by generous members of the public (although more and more companies are also starting to see the benefits of low-cost wide area networks). That being said, LoraWAN coverage in the UK is still in the early stages of growth, and therefore ensuring a reliable data stream for your IoT application can be a considerable challenge.
+This is part 2 of my 3 part guide for building a LoRaWAN based air quality monitoring system. This time I'll go over the key components which make up the firmware - the code that is programmed onto the sensor MCU (An ESP32 in our case). This code is written and uploaded using the Arduino IDE.
 
-I took on this challenge for a recent project, in which we were assigned the task of monitoring pollution (PM10 and PM2.5 specifically) on a large industrial site. The site had no existing LoraWAN infrastructure, so we had to install our own gateway, and the cellular backhaul we used to connect the gateway to the internet also suffered from connection dropouts.
+# Firmware
 
-This guide outlines the steps we went through to overcome these issues.
+On the most basic level, the job of the MCU is to take sensor values and send them over the air via the LoRaWAN transceiver. To achieve this, the MCU must be able to communicate with both of these peripherals. We used [MCCI's arduino-lmic](https://github.com/mcci-catena/arduino-lmic){:target="_blank"} library to talk with our RFM95 module. This library gives you a full LoraWAN stack (a lot of Arduino libraries only do basic Lora) with full support for bidirectional data transfer - so you can send data to your sensors as well as receive data.
 
-# Hardware
-
-## Gateway
-We initially made the mistake of using an entry level gateway for our application - [The Things Network Gateway](https://www.thethingsnetwork.org/docs/gateways/gateway). While the device is cheap and integrates seamlessly with TTN's own software backend (which is free), there really is no alternative for an industrial grade gateway, especially if want to communicate with sensors over 1km away. We eventually went for the [Kerlink Wirnet iStation](https://www.thethingsnetwork.org/docs/gateways/kerlink/istation/).
-
-It is definitely worth assigning a good proportion of your project budget to the gateway(s), as this is really the linchpin of the entire network. Thankfully, one of the benefits of LoraWAN sensors is that they are typically very cheap compared to other types of sensors, so apportioning the budget this way makes sense in the grand scheme of things.
-
-## Sensors
-The majority of LoraWAN sensors boil down to 4 components - sensor, battery, MCU and LoraWAN transceiver. We ended up combining the MCU and transceiver components into a single PCB to simplify assembly of the device. The PCB also included clips for attaching the batteries, and a charging circuit so we could hook up a solar panel. We used a [Sensirion SPS30](https://www.sensirion.com/en/environmental-sensors/particulate-matter-sensors-pm25/) for our pollution sensor.
-
-For the MCU we used an ESP32, as it can be programmed easily using the Arduino IDE, and has features such as deep-sleep which allow it to conserve battery life. The LoraWAN transceiver we chose - the RFM95 - is an all-in-one module which made it easy to add to the PCB. We also included a RTC module to facilitate precise timekeeping on the device (as the ESP32's internal RTC tends to drift over time)
-
-# Software
-
-## ESP32 firmware
-On the most basic level, the job of the MCU is to take sensor values and send them over the air via the LoraWAN transceiver. To achieve this, the MCU must be able to communicate with both of these peripherals. We used [MCCI's arduino-lmic](https://github.com/mcci-catena/arduino-lmic) library to talk with our RFM95 module. This library gives you a full LoraWAN stack (a lot of Arduino libraries only do basic Lora) with full support for bidirectional data transfer - so you can send data to your sensors as well as receive data.
+To save ourselves some time, we can use one of the examples in the arduino-lmic library - ttn-otaa - as a starting point for our code. We can import the [Rtc library by Makuna](https://github.com/Makuna/Rtc/wiki){:target="_blank"} to talk with our RTC module (a DS3231 to be exact), and the [sps30 library by Johannes Winkelmann](https://github.com/Sensirion/embedded-sps/blob/master/sps30-i2c/sps30_example_usage.c){:target="_blank"} to talk with our particulate sensor. These devices can be initialised by including the following lines in our setup() function:
 
 
+```C++
 
+sensirion_i2c_init();
+Rtc.Begin();
 
+```
 
+## storing data in a FIFO buffer
 
 
 

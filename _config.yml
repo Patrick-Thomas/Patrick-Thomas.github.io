@@ -24,6 +24,9 @@ github_username: username
 minimal_mistakes_skin: default
 search: true
 
+logo: "/assets/images/sparkglug_banner.png"
+masthead_title: ""
+
 url: "https://sparkglug.co.uk"
 repository: "Patrick-Thomas/Patrick-Thomas.github.io" 
 
