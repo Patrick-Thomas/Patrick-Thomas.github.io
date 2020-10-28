@@ -15,6 +15,14 @@ tags:
 
 This is part 2 of my 3 part guide for building a LoRaWAN based air quality monitoring system. This time I'll go over the key components which make up the firmware - the code that is programmed onto the sensor MCU (An ESP32 in our case). This code is written and uploaded using the Arduino IDE.
 
+## Sensors
+The majority of LoRaWAN sensors boil down to 4 components - sensor, battery, MCU and LoRaWAN transceiver. We ended up combining the MCU and transceiver components onto a single PCB to simplify assembly of the device. The PCB also included clips for attaching the batteries, and a charging circuit so we could hook up a solar panel. We used a [Sensirion SPS30](https://www.sensirion.com/en/environmental-sensors/particulate-matter-sensors-pm25/) for our pollution sensor.
+
+For the MCU we used an ESP32, as it can be programmed easily using the Arduino IDE, and has features such as deep-sleep which is essential for conserving battery life. The LoRaWAN transceiver we chose - the RFM95 - is an all-in-one module which made it easy to add to the PCB. We also included a RTC module to facilitate precise timekeeping on the device (as the ESP32's internal RTC tends to drift over time).
+
+# Coming up in Part 2: Firmware
+I will go through the process of writing firmware for the sensor using the Arduino IDE.
+
 # Firmware
 
 On the most basic level, the job of the MCU is to take sensor values and send them over the air via the LoRaWAN transceiver. To achieve this, the MCU must be able to communicate with both of these peripherals. We used [MCCI's arduino-lmic](https://github.com/mcci-catena/arduino-lmic){:target="_blank"} library to talk with our RFM95 module. This library gives you a full LoraWAN stack (a lot of Arduino libraries only do basic Lora) with full support for bidirectional data transfer - so you can send data to your sensors as well as receive data.
