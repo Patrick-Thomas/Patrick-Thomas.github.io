@@ -1,5 +1,5 @@
 ---
-title: "A homemade streamdeck - Part 1: Understanding the problem"
+title: "A homemade streamdeck part 1: understanding the problem"
 date: 2020-11-04T15:00:00-00:00
 categories:
   - blog
