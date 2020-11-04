@@ -21,8 +21,7 @@ While going through some design improvements for our rover, I decided to impleme
 **By the way:** We are using a Jetson Xavier NX developer kit as our PC (with ROS Kinetic), and a pair of ODrives for our motor controllers. These instructions should still be relevant for similar hardware configurations, although the software steps may be quite different for a non-Linux setup.
 {: .notice--info}
 
-# ros_upstart
-
+## ros_upstart
 ros_upstart is a ROS package which configures a Linux daemon (background) service to run your chosen roslaunch file. The service starts automatically once the OS is booted, but can also be started and stopped manually just like any other daemon. [Here is the guide I used to configure ros_upstart.](https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upstart/){:target="_blank"}
 
 You may also need to consider the permissions granted to the service. By default the service is run without user privileges, which may cause problems if your ROS nodes need to access hardware interfaces e.g. GPIO, UART. In Linux, use of these interfaces is typically controlled using groups. A group is granted access to a particular interface via a udev rule, and users who belong to that group are able to use the interface.
@@ -45,7 +44,7 @@ envuidgid patrick roslaunch $LAUNCH_FILENAME & PID=$!
 
 You can use the command `rosnode list` to verify that all your nodes have been loaded successfully by the service.
 
-# Switch detection
+## Switch detection
 
 While ros_upstart takes care of the start-up procedure, we still need a way of turning the system off. As one of our primary aims is to control everything using a single toggle switch, we need some way of detecting the state of this switch and running the `shutdown` command when it is in the off state. Running this command ensures all services (including ROS) are stopped in a controlled manner, and protects against filesystem corruption.
 
@@ -105,7 +104,7 @@ if __name__ == '__main__':
 
 ```
 
-# Delay off timer
+## Delay off timer
 
 There is one extra thing we need to ensure the shutdown function can work effectively. While the toggle switch is sufficient to power off the motor controllers and signal the PC to shutdown, there needs to a way to keep the PC powered while it is shutting down, as a toggle switch by it’s nature causes a break in the circuit. This can be achieved using a [‘delay off’ timer relay](https://www.12voltplanet.co.uk/adjustable-delay-timer-relay-delay-on-or-off-24v-10a.html){:target="_blank"}. The complete circuit, including the aforementioned optocoupler is shown below:
 
@@ -113,7 +112,7 @@ There is one extra thing we need to ensure the shutdown function can work effect
 
 The delay timer here keeps the coil energised for a fixed interval once the switch has been opened (about 30 seconds in our case), allowing current to flow through the relay contacts and thus keep the DC/DC converter powered while the shutdown is completed. After this delay the coil de-energises and the DC/DC converter is switched off, preventing anything from draining the 24V battery while the rover is switched off. 
 
-# Finishing up
+## Finishing up
 
 With everything wired up and working, it’s just a case of adding the shutdown node to the list of nodes that are launched on startup via ros_upstart. It’s definitely worth testing this node independently before adding it to your roslaunch file, as you may end up with the PC shutting itself down instantly on startup, which could be an annoying problem to fix.
 
