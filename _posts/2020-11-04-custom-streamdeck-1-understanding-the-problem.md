@@ -1,5 +1,5 @@
 ---
-title: "Custom streamdeck<br/>Part 1: understanding the problem"
+title: "Custom streamdeck<br/> Part 1: understanding the problem"
 date: 2020-11-04T15:00:00-00:00
 categories:
   - blog
