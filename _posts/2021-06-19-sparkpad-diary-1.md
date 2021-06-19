@@ -1,6 +1,6 @@
 ---
 title: "Sparkpad diary 1"
-date: 2021-07-19T11:00:00-00:00
+date: 2021-06-19T11:00:00-00:00
 categories:
   - blog
   - Arduino
@@ -29,7 +29,7 @@ The case is one of the centrepieces of the Sparkpad, and has caused the majority
 
 Our initial rationale for settling on a laser cut design was to allow us to cut and engrave the Sparkpad panels in one step. This saves us a lot of manufacturing time, and we don't have to worry about misalignment. However, since a laser cutter can only give you flat panels, you inevitably need some way to turn those panels into a 3D shape. We opted for gluing the panels to keep the exterior of the Sparkpad as clean as possible by limiting the number of screws. We also engraved a slot along the top edges of each side panel for the top panel to sit in, thus hiding it's unsightly edges and boosting the aesthetics.
 
-![](/assets/images/glue.jpg)
+![](/assets/images/glue2.jpg)
 
 While the design ticked many boxes, keeping the panels aligned while gluing them was very difficult without using a dedicated jig. In addition, since the glue was providing all the structural support, we needed to use superglue which - as a liquid - tended to go to places it wasn't wanted such as the edges of the top panel (as you can see in the above photo). As we wanted to offer the Sparkpad as an un-assembled kit, we quickly realised we wouldn't be able to ship a jig along with every single kit, so a revision was necessary. Thus we added fingers to the side panels to ease assembly, and provide additional structural support (which meant we could swap the superglue for glue gun, which is far less messy). 
 
@@ -47,7 +47,7 @@ We also added Schmitt triggers (in the form of a 74HC14 chip) to the volume cont
 ### Keys
 The selection of key cap stickers we now offer has been largely shaped by the Streaming community. The layout of our original Romac-based prototype was well received, so we didn't alter too much in the development stages besides inverting the colours to work with the Sparkpad's LEDs. We also added the Productivity and Mini packs to give people as many options as possible when customising their own Sparkpad layout.
 
-![](/assets/images/keys.jpg)
+![](/assets/images/keys.jpeg)
 
 ### Firmware
 The Sparkpad's firmware has evolved to accommodate key design updates. 
