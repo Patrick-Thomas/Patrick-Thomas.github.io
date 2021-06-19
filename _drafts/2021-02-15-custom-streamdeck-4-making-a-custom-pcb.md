@@ -17,23 +17,11 @@ tags:
 ## Introduction
 So it's finally time to get stuck into some design work! In this article I describe the process of building a stream deck prototype from scratch, taking inspiration from custom mechanical keyboards.
 
-## Macro pad
-After some browsing on [mechboards](https://mechboards.co.uk/){:target="_blank"} - a UK based supplier of mechanical keyboards - I discovered the RoMac. The RoMac is a 12 key macro pad (a macro pad is a miniature keyboard with keys tailored for a particular workflow) made from only a handful of components - 2 PCBs, 12 'Cherry MX' style switches, 12 diodes, some fasteners and an Arduino Pro Micro. It is sold as a kit which you assemble yourself using a soldering iron and screwdriver. I purchased a kit and the parts were with me within matter of days.
+## Getting Started
 
-![](/assets/images/romac.jpg)
-
-Unfortunately I quickly realised the switches I bought were not of the correct type. As the RoMac does not have a switch panel, the switches needed two additional mounting pegs to provide lateral support. The switches I bought were lacking these pegs. Nevertheless, I soldered the switches on - doing my best to keep them aligned - and the end result wasn't too bad. Since this was only a prototype I wasn't too concerned with the keys being a bit wobbly.
-
-![](/assets/images/plate_pcb.jpg)
 
 ## Key caps
-I also bought some relegenderable key caps along with the RoMac. These are blank key caps with a transparent cover, allowing you to use your own custom cap designs printed on paper or vinyl. I imported a template from the store page into my preferred vector graphics software - Inkscape - and made a set of custom caps. As a veteran streamer, my friend James was instrumental in helping me decide which icons to use for each cap. To save time I used icons from [The Noun Project](https://thenounproject.com/){:target="_blank"}, which is a great resource for anyone designing user interfaces.
 
-![](/assets/images/template2.png)
-
-To complement the aesthetics of the RoMac, I chose a 'dark mode' colour scheme for the keys. I initially thought this would be expensive to print, but my local print-shop had no qualms printing the design on vinyl. I cut out each symbol using a scalpel and stuck them onto the key caps to complete the build.
-
-![](/assets/images/prototype1.jpg)
 
 ## Software
 The Arduino Pro Micro sold with the RoMac had QMK based firmware pre-installed on it. QMK is an open source project maintained by the custom keyboard community, and has a few key components:

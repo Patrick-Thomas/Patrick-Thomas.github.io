@@ -1,5 +1,5 @@
 ---
-title: "Custom streamdeck<br/> Part 2: Existing solutions"
+title: "Custom streamdeck<br/> Part 2: existing solutions"
 date: 2020-11-21T21:00:00-00:00
 categories:
   - blog
