@@ -31,6 +31,7 @@ Our initial rationale for settling on a laser cut design was to allow us to cut 
 
 <div align="center"> 
 	<img width="600" src="/assets/images/glue.jpg">
+	&nbsp;
 </div>
 
 
@@ -38,9 +39,9 @@ While the design ticked many boxes, keeping the panels aligned while gluing them
 
 <div align="center"> 
 	<img width="600" src="/assets/images/fingers.jpg">
+	&nbsp;
 </div>
 
-&nbsp;
 
 While prototyping this we ran up against another problem - tolerances. For the fingers to slot together nicely, the tolerances of the laser cutter need to be up to scratch, and we had to make several tiny adjustments to get the fit we needed. As we look to scale up the manufacture of Sparkpads, we may have to adapt the design to suit different laser cutters, so the battle is far from over.
 
@@ -48,8 +49,9 @@ While prototyping this we ran up against another problem - tolerances. For the f
 The PCB hasn't changed too much since it's original inception. The only revisions were necessitated by an update to the firmware, specifically the volume control knob driver. We made the swap to an interrupt based driver from a polling based one as new firmware features started taking up more and more of the Arduino's processing time. However, the Arduino has a limited number of interrupt-capable pins, and on the original PCB the knob was tied to pins which unfortunately weren't interrupt-capable. This was a relatively simple design revision, and while we waited for the new PCB's to arrive we were able to fix the issue using a wire mod.
 
 <div align="center"> 
-	<img height="600" src="/assets/images/mod.jpg">
+	<img width="600" src="/assets/images/mod.jpg">
 </div>
+&nbsp;
 
 We also added Schmitt triggers (in the form of a 74HC14 chip) to the volume control knob's pins to improve noise resistance, and thus prevent the driver interrupts from triggering incorrectly.
 
@@ -59,6 +61,7 @@ The selection of key cap stickers we now offer has been largely shaped by the St
 <div align="center"> 
 	<img width="600" src="/assets/images/keys.jpeg">
 </div>
+&nbsp;
 
 ### Firmware
 The Sparkpad's firmware has evolved to accommodate key design updates. 
