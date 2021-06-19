@@ -33,23 +33,31 @@ Our initial rationale for settling on a laser cut design was to allow us to cut 
 	<img width="600" src="/assets/images/glue.jpg">
 </div>
 
+
 While the design ticked many boxes, keeping the panels aligned while gluing them was very difficult without using a dedicated jig. In addition, since the glue was providing all the structural support, we needed to use superglue which - as a liquid - tended to go to places it wasn't wanted such as the edges of the top panel (as you can see in the above photo). As we wanted to offer the Sparkpad as an un-assembled kit, we quickly realised we wouldn't be able to ship a jig along with every single kit, so a revision was necessary. Thus we added fingers to the side panels to ease assembly, and provide additional structural support (which meant we could swap the superglue for glue gun, which is far less messy). 
 
-![](/assets/images/fingers.jpg)
+<div align="center"> 
+	<img width="600" src="/assets/images/fingers.jpg">
+</div>
+
 
 While prototyping this we ran up against another problem - tolerances. For the fingers to slot together nicely, the tolerances of the laser cutter need to be up to scratch, and we had to make several tiny adjustments to get the fit we needed. As we look to scale up the manufacture of Sparkpads, we may have to adapt the design to suit different laser cutters, so the battle is far from over.
 
 ### PCB
 The PCB hasn't changed too much since it's original inception. The only revisions were necessitated by an update to the firmware, specifically the volume control knob driver. We made the swap to an interrupt based driver from a polling based one as new firmware features started taking up more and more of the Arduino's processing time. However, the Arduino has a limited number of interrupt-capable pins, and on the original PCB the knob was tied to pins which unfortunately weren't interrupt-capable. This was a relatively simple design revision, and while we waited for the new PCB's to arrive we were able to fix the issue using a wire mod.
 
-![](/assets/images/mod.jpg)
+<div align="center"> 
+	<img height="600" src="/assets/images/mod.jpg">
+</div>
 
 We also added Schmitt triggers (in the form of a 74HC14 chip) to the volume control knob's pins to improve noise resistance, and thus prevent the driver interrupts from triggering incorrectly.
 
 ### Keys
 The selection of key cap stickers we now offer has been largely shaped by the Streaming community. The layout of our original Romac-based prototype was well received, so we didn't alter too much in the development stages besides inverting the colours to work with the Sparkpad's LEDs. We also added the Productivity and Mini packs to give people as many options as possible when customising their own Sparkpad layout.
 
-![](/assets/images/keys.jpeg)
+<div align="center"> 
+	<img width="600" src="/assets/images/keys.jpg">
+</div>
 
 ### Firmware
 The Sparkpad's firmware has evolved to accommodate key design updates. 
