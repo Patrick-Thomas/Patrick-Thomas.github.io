@@ -31,17 +31,15 @@ Our initial rationale for settling on a laser cut design was to allow us to cut 
 
 <div align="center"> 
 	<img width="600" src="/assets/images/glue.jpg">
-	&nbsp;
 </div>
-
+&nbsp;
 
 While the design ticked many boxes, keeping the panels aligned while gluing them was very difficult without using a dedicated jig. In addition, since the glue was providing all the structural support, we needed to use superglue which - as a liquid - tended to go to places it wasn't wanted such as the edges of the top panel (as you can see in the above photo). As we wanted to offer the Sparkpad as an un-assembled kit, we quickly realised we wouldn't be able to ship a jig along with every single kit, so a revision was necessary. Thus we added fingers to the side panels to ease assembly, and provide additional structural support (which meant we could swap the superglue for glue gun, which is far less messy). 
 
 <div align="center"> 
 	<img width="600" src="/assets/images/fingers.jpg">
-	&nbsp;
 </div>
-
+&nbsp;
 
 While prototyping this we ran up against another problem - tolerances. For the fingers to slot together nicely, the tolerances of the laser cutter need to be up to scratch, and we had to make several tiny adjustments to get the fit we needed. As we look to scale up the manufacture of Sparkpads, we may have to adapt the design to suit different laser cutters, so the battle is far from over.
 
