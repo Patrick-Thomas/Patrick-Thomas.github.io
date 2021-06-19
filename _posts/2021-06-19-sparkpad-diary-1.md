@@ -17,7 +17,7 @@ tags:
 ---
 
 ## Introduction
-Although still a few months from celebrating our first birthday, the Sparkpad project has come a long way. After many weekend and evening hours spent toiling, we've learnt valuable lessons which have kept us on the road to growth (as anyone familiar with running a business can tell you, building a product is often the easy part).
+Although we're still a few months away from celebrating our first birthday, the Sparkpad project has come a long way. After many weekend and evening hours spent toiling, we've learnt some valuable lessons which have kept us on the road to growth (as anyone familiar with running a business can tell you, building a product is often the easy part).
 
 This diary is our way of sharing some of those lessons with you, and keeping you up to date with the latest Sparkpad developments. 
 
@@ -41,10 +41,10 @@ While the design ticked many boxes, keeping the panels aligned while gluing them
 </div>
 &nbsp;
 
-While prototyping this we ran up against another problem - tolerances. For the fingers to slot together nicely, the tolerances of the laser cutter need to be up to scratch, and we had to make several tiny adjustments to get the fit we needed. As we look to scale up the manufacture of Sparkpads, we may have to adapt the design to suit different laser cutters, so the battle is far from over.
+While prototyping this we ran up against another problem - tolerances. For the fingers to slot together nicely, the tolerances of the laser cutter need to be up to scratch, and we had to make several tiny adjustments to get the fit we needed. As we look to scale up the manufacture of Sparkpads, we may have to adapt the design to suit different laser cutters (and materials), so the battle is far from over on this front.
 
 ### PCB
-The PCB hasn't changed too much since it's original inception. The only revisions were necessitated by an update to the firmware, specifically the volume control knob driver. We made the swap to an interrupt based driver from a polling based one as new firmware features started taking up more and more of the Arduino's processing time. However, the Arduino has a limited number of interrupt-capable pins, and on the original PCB the knob was tied to pins which unfortunately weren't interrupt-capable. This was a relatively simple design revision, and while we waited for the new PCB's to arrive we were able to fix the issue using a wire mod.
+The PCB hasn't changed too much since it's original inception. The only revisions were necessitated by an update to the firmware, specifically the volume control knob driver. We made the swap to an interrupt based driver from a polling based one as new firmware features started taking up more and more of the Arduino's processing time. However, the Arduino has a limited number of interrupt-capable pins, and on the original PCB the knob was tied to pins which  weren't interrupt-capable. This was a relatively simple design revision, and while we waited for the new PCB's to arrive we were able to fix the issue using a wire mod.
 
 <div align="center"> 
 	<img width="600" src="/assets/images/mod.jpg">
@@ -66,7 +66,7 @@ The Sparkpad's firmware has evolved to accommodate key design updates.
 
 We added support for platformio alongside the Arduino IDE, which involved adding a platformio.ini file to the [Arduino library files](https://github.com/Patrick-Thomas/Sparkpad-Arduino){:target="_blank"}. Platformio allows for a more comfortable coding experience thanks to it's file explorer, and tools such as syntax checking and code-completion. The file explorer especially became invaluable as more and more of the Sparkpad's code started migrating to header files.
 
-New features have been added periodically thanks to suggestions posted in our Discord, with most ideas revolving around new lighting modes for the LED matrix. The biggest roadblock in implementing these new features has been the memory limitations of the Sparkpad's Arduino Pro-Micro. Ultimately, we settled on swapping out the knob and switch matrix for our own hard coded alternatives, which saved us just enough memory to implement the features we needed.
+New features have been added periodically off the back of suggestions posted in our Discord, with most ideas revolving around new lighting modes for the LED matrix. The biggest roadblock in implementing these new features has been the memory limitations of the Sparkpad's Arduino Pro-Micro. Ultimately, we settled on swapping out the knob and switch matrix drivers for our own hard coded alternatives, which saved us just enough memory to implement the features we needed.
 
 As new features get suggested all the time, we are very likely to run into a memory wall once again before too long, and getting over that wall will require some more lateral thinking.
 
@@ -79,6 +79,6 @@ We recently upgraded the shop section of our website to streamline the process o
 The [Discord community](https://discord.gg/uvYdVn9TBU){:target="_blank"} where Sparkpad first started gaining traction now has dedicated channels for Sparkpad related topics. We also have our [Twitter](https://twitter.com/spark_pad){:target="_blank"} and [Instagram](https://www.instagram.com/spark_pad/){:target="_blank"} feeds for more general updates.
 
 ### Streaming
-We now stream regularly on our [Twitch channel](https://www.twitch.tv/spark_pad){:target="_blank"}. At the moment we have 4 different types of stream: PCB Soldering, Case Assembly, Coding and Engraving design. We also gave away a free customised Sparkpad as part of a [recent charity stream](https://twitter.com/spark_pad/status/1399751086118932481){:target="_blank"}.
+We now stream regularly on our [Twitch channel](https://www.twitch.tv/spark_pad){:target="_blank"}. At the moment we have 4 different types of stream: PCB Soldering, Case Assembly, Coding and Engraving design. We also seek out collaborations with fellow streamers, and recently we gave away a free customised Sparkpad as part of a [charity stream](https://twitter.com/spark_pad/status/1399751086118932481){:target="_blank"}.
 
 <b>Thanks for reading! We are aiming to post diary updates on a monthly basis. If you have any further questions, send us an emal at info@sparkpad.co.uk</b>
