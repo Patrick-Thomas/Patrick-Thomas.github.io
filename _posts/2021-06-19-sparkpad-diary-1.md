@@ -40,6 +40,7 @@ While the design ticked many boxes, keeping the panels aligned while gluing them
 	<img width="600" src="/assets/images/fingers.jpg">
 </div>
 
+&nbsp;
 
 While prototyping this we ran up against another problem - tolerances. For the fingers to slot together nicely, the tolerances of the laser cutter need to be up to scratch, and we had to make several tiny adjustments to get the fit we needed. As we look to scale up the manufacture of Sparkpads, we may have to adapt the design to suit different laser cutters, so the battle is far from over.
 
@@ -56,7 +57,7 @@ We also added Schmitt triggers (in the form of a 74HC14 chip) to the volume cont
 The selection of key cap stickers we now offer has been largely shaped by the Streaming community. The layout of our original Romac-based prototype was well received, so we didn't alter too much in the development stages besides inverting the colours to work with the Sparkpad's LEDs. We also added the Productivity and Mini packs to give people as many options as possible when customising their own Sparkpad layout.
 
 <div align="center"> 
-	<img width="600" src="/assets/images/keys.jpg">
+	<img width="600" src="/assets/images/keys.jpeg">
 </div>
 
 ### Firmware
