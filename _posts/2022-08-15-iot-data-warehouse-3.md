@@ -1,5 +1,5 @@
 ---
-title: "IoT data warehouse 3<br/> Pipelines"
+title: "IoT data warehouses 3<br/> Pipelines"
 date: 2022-08-15T15:00:00-00:00
 categories:
   - Data
@@ -9,6 +9,7 @@ tags:
   - BigQuery
   - Cloud Run
   - App Engine
+  - SQL
   - Python
 ---
 
@@ -173,7 +174,7 @@ def send_to_data_warehouse(uri, unzippedfilecontent):
 ## PubSub
 GCP also has a BigQuery connector for PubSub, which is a service for publishing and subscribing to message queues. PubSub is primarily intended for internal messaging within GCP, but there are some external services which can publish directly to PubSub queues, making for a very simple and secure data pipeline (since there's no need to expose a public URL unlike with a webhook). The only difficulty in setting this up is the message schema must match the BigQuery schema, so there might be some adjustments to be made in BigQuery before data can be ingested. A typical JSON message schema could have sensor values nested within a payload object like this:
 
-```JSON
+```json
 
 {
 	device_id : aaa,
@@ -196,7 +197,7 @@ We would need to update our Sensor_data table accordingly:
 
 Our sensor values are now hidden in a JSON string, so how can we extract the raw values for our queries? BigQuery has some JSON functions which can help us out, and JSON_EXTRACT_SCALAR is just what we're looking for:
 
-```SQL
+```sql
 
 SELECT device_id, timestamp,
 JSON_EXTRACT_SCALAR(payload, '$.temperature') as temperature,

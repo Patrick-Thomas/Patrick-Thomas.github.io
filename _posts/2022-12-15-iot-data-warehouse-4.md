@@ -1,5 +1,5 @@
 ---
-title: "IoT data warehouse 4<br/> Metrics"
+title: "IoT data warehouses 4<br/> Metrics"
 date: 2022-12-03T15:00:00-00:00
 categories:
   - Data
@@ -8,6 +8,7 @@ tags:
   - GCP
   - BigQuery
   - Cloud Run
+  - SQL
   - Python
 ---
 
@@ -16,7 +17,7 @@ Our data warehouse now contains a diverse set of data which we can query with re
 ## Scheduled queries
 It's possible to calculate metrics from within BigQuery itself using scheduled queries. A scheduled query simply appends or inserts query results into a table of your choice on a given schedule. The query run time and date are accessible within the query environment via the parameters run_time and run_date, which makes calculating hourly averages trivial:
 
-```SQL
+```sql
 
 SELECT device_id, AVG(temperature) as average_temperature FROM Sensor_data
 
@@ -27,7 +28,7 @@ GROUP BY device_id
 
 Here the TIMESTAMP_SUB function allows us to only include data from the past hour in our calculation. BigQuery scheduled queries also support backfill, which is very useful if you want to calculate metrics for historical data. The preceding metric can be backfilled easily, since there is no 'overlap' between the calculated values. However, this is not always the case. Suppose we want to keep track of the total number of samples we've received from each sensor, and have the the value updated each day. The scheduled query for this metric would look like this:
 
-```SQL
+```sql
 
 -- Get the latest count for each sensor from our existing metric table (Device_total_samples_metric)
 WITH previous AS (
@@ -59,7 +60,7 @@ FROM previous JOIN current USING (device_id)
 ```
 In this case, performing a standard backfill would produce a discontinuity at the intersection of new and historic values. Instead, we can write a procedure to delete and recalculate all our values:
 
-```SQL
+```sql
 
 BEGIN
 
@@ -89,7 +90,7 @@ FROM count_daily
 
 Certain metrics are even trickier to work with. For example, what if we want to apply an exponential filter to our temperature data? Analytic functions - such as SUM in the last example - let us carry out certain operations row-by-row, but there is no equivalent function for exponential filtering. Such operations are difficult to perform in pure SQL due to their 'non-vectorisable' nature. Therefore - to give ourselves more flexibility - we can write our own UDF (user defined function) using a non-SQL dialect. Currently, BigQuery only supports javascript (and SQL) UDFs, so that's what we'll use:
 
-```SQL
+```sql
 
 CREATE OR REPLACE FUNCTION exponential_filter (input_array ARRAY<STRUCT<timestamp TIMESTAMP, value FLOAT64>>, alpha FLOAT64)
 RETURNS ARRAY<STRUCT<timestamp TIMESTAMP, value FLOAT64>>
@@ -120,7 +121,7 @@ return input_array
 
 To use this function in our metric calculations, we need to convert our rows of temperature data into an array, and this is acheived using the ARRAY_AGG function. Once we've transformed our array using the exponential filter, we then need to use the 'inverse' of the ARRAY_AGG function - the UNNEST operator - to get our new rows. How do we ensure the filter runs for each of our sensors? We could include logic in our UDF to split our input array by device_id, but this approach is unnecessarily complex. Instead, we can use a procedural FOR loop in BigQuery to do the split. Such loops allow you to execute a set of SQL statements for each row in a table, similar to the forEach method in javascript. Here is what our scheduled query looks like:
 
-```SQL
+```sql
 
 BEGIN
 
@@ -177,7 +178,7 @@ END
 
 And here is our backfill calculation; we'd run this to filter all our historic data up to this point:
 
-```SQL
+```sql
 
 BEGIN
 

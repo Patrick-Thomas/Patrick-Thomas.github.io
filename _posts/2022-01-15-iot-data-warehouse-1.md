@@ -7,6 +7,7 @@ categories:
 tags:
   - GCP
   - BigQuery
+  - SQL
   - Python
 ---
 
@@ -35,7 +36,7 @@ Suppose we have a large quantity of LoraWAN sensors (long range sensors optimise
 
 For simplicity, we can store the metadata in a spreadsheet to make it easy to read and modify. To import this data into our data warehouse of choice - BigQuery - we can make use of the Google Sheets connector. Our live sensor data can be piped directly into a native BigQuery table (a process I'll describe later), and with both sets of data now in our warehouse, we can run SQL queries such as the following:
 
-```SQL
+```sql
 
 SELECT device_id, AVG(temperature) as average_temperature FROM Sensor_data
 JOIN Metadata USING (device_id)

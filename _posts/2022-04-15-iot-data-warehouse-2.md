@@ -1,5 +1,5 @@
 ---
-title: "IoT data warehouse 2<br/> Schemas"
+title: "IoT data warehouses 2<br/> Schemas"
 date: 2022-04-15T15:00:00-00:00
 categories:
   - Data
@@ -7,6 +7,7 @@ categories:
 tags:
   - GCP
   - BigQuery
+  - SQL
 ---
 
 Last time we discussed how to implement a data warehouse for a typical IoT application. While our current solution is usable, we aren't yet leveraging the true potential of our warehouse to make downstream analysis as painless as possible. How can we:
@@ -60,7 +61,7 @@ The Assets table now contains all our high level information, including a 'name'
 
 Anytime we assign a device to an asset, we record it in this table along with the time we wish the assignment to take effect. How can we use this to join our Assets and Devices tables together? Simply put, we need to calculate time windows (start and end times) using our assignments, and compare these to the sample timestamps during our table join. The LEAD operator - one of the many analytic functions available in BigQuery - gives us our windows by grouping and sorting our assignments. Thus, our query ends up looking like this:
 
-```SQL
+```sql
 
 -- We need to specify the time period in which all our data resides
 DECLARE start_time DEFAULT "2000-01-01"
@@ -103,7 +104,7 @@ Materialised views are like snapshots of a SQL query, where the results are refr
 
 Despite their obvious benefits, materialised views come with a few prequisites. For one, they only support BigQuery native tables as inputs, so for our IoT application we need to move our current spreadsheet-based metadata over to this format. [Here is a good guide for how to do this using an Apps Script](https://towardsdatascience.com/google-sheets-to-google-bigquery-move-your-data-a5fa9f4e9e5d){:target="_blank"}. Secondly, analytic functions are not supported in the definition of a materialised view, and so our time windows must be built ahead of time and inserted into another native table. A good way to do this might be using a scheduled procedure to update the windows periodically or on demand:
 
-```SQL
+```sql
 
 BEGIN
 
@@ -134,7 +135,7 @@ END
 
 With all this taken into consideration, we define our materialised view like this:
 
-```SQL
+```sql
 
 CREATE OR REPLACE MATERIALIZED VIEW Sensor_view
 PARTITION BY DATE(timestamp)
