@@ -22,7 +22,7 @@ In regards to our LoraWAN sensors, we need one additional component to get the d
 
 Within our container code, we can use the BigQuery Python API to get data into BigQuery. As you may remember, our data analysts are already using this API to run queries on our data warehouse. However, in this case we are using another feature of the API - streaming inserts - to send data in the opposite direction. We could potentially also run queries within the same container (to clean / transform incoming data using our metadata, for example), but there a few of reasons why we should avoid this:
 
-1. It's redundant since we alredy have the materialised view to carry out such operations for us
+1. It's redundant since we already have the materialised view to carry out such operations for us
 2. Our quota usage will increase
 3. There are risks associated with discarding data - even erroneous data - before it reaches our data warehouse. Such data could be critical in diagnosing sensor / pipeline issues for example
 
@@ -60,7 +60,13 @@ app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 Once deployed, GCP associates a unique URL with this service and any POST requests made to it will reach the main() function. The Cloud Run (internal) service can be made more secure by requiring authentication, and this is typically achieved by sharing service account credentials with the calling (external) service.
 
 ## Mail
-Suppose we receve some data in the form of email attachments, how can we get this data into BigQuery without needing to manually download and reupload it ourselves? Cloud Run is not applicable in this instance, however another GCP service - App Engine - can come to our aid. App Engine supports the Mail API which allows us to receive emails and process the attachments programmatically in Python. We still use Flask to handle requests, however this time the trigger is an email and not a webhook. The target email address is determined by the App Engine service name and GCP project id: RECIPIENT@SERVICE_NAME-dot-PROJECT_ID.appspotmail.com (the RECIPIENT does not matter but can be used for additional filtering). The following code will handle attachments in the form of multiple zipped csvs:
+Suppose we receve some data in the form of email attachments, how can we get this data into BigQuery without needing to manually download and reupload it ourselves? Cloud Run is not applicable in this instance, however another GCP service - App Engine - can come to our aid. App Engine supports the Mail API which allows us to receive emails and process the attachments programmatically in Python. We still use Flask to handle requests, however this time the trigger is an email and not a webhook. The target email address is determined by the App Engine service name and GCP project id: 
+
+```
+RECIPIENT@SERVICE_NAME-dot-PROJECT_ID.appspotmail.com 
+```
+
+The 'RECIPIENT' does not matter but can be used for additional filtering. The following code will handle attachments in the form of multiple zipped csvs:
 
 ```python
 
@@ -118,7 +124,8 @@ def receive_mail(path):
 
 How to implement our send_to_data_warehouse function? There are a couple of options available: 
 
-1. If the attachments are csvs (like in the above example) or json files, we can upload them straight to Google Cloud Storage and add them to BigQuery as an external data source. This makes our App Engine code very simple, but potentially give us headaches further down the line. External data sources are not supported in materialised views, so this will make it harder to optimise queries involving this data (However, you can bypass this limitation if you upgrade to {BigLake tables with Hive partioning}(https://cloud.google.com/bigquery/docs/create-cloud-storage-table-biglake){:target="_blank"}).
+### Save to GCS
+If the attachments are csvs (like in the above example) or json files, we can upload them straight to Google Cloud Storage and add them to BigQuery as an external data source. This makes our App Engine code very simple, but potentially give us headaches further down the line. External data sources are not supported in materialised views, so this will make it harder to optimise queries involving this data (However, you can bypass this limitation if you upgrade to [BigLake tables with Hive partioning](https://cloud.google.com/bigquery/docs/create-cloud-storage-table-biglake){:target="_blank"}).
 
 ```python
 
@@ -136,7 +143,8 @@ def send_to_data_warehouse(uri, unzippedfilecontent):
 
 ```
 
-2. We can use streaming inserts to pipe the data into a BigQuery native table, allowing us to optimise our queries using materialised views. However, this comes at the cost of making our App Engine code more complicated since we need to transform the data before we can stream it.
+### Stream to BigQuery
+We can use streaming inserts to pipe the data into a BigQuery native table, allowing us to optimise our queries using materialised views. However, this comes at the cost of making our App Engine code more complicated since we need to transform the data before we can stream it.
 
 ```python
 
@@ -185,6 +193,8 @@ GCP also has a BigQuery connector for PubSub, which is a service for publishing 
 		humidity : yyy,
 	}
 }
+
+```
 
 We would need to update our Sensor_data table accordingly:
 
